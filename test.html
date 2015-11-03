@@ -2,25 +2,31 @@
 <head>
 	<title>Clare's Tech Question Response
 	</title>
-	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-	<textarea id="myTextarea" rows="10" col="50">Input emails here
-	</textarea>
+	<textarea id="myTextarea" rows="10" col="50" placeholder="input emails here"></textarea>
 	<input type="submit" value="submit"onclick="return sendData();" />
 	<p id="emails">This is where the output will be</p>
 
 	<script>
-
-	function sendData() {
-		var incomingData = document.getElementById('myTextarea').value;
-		console.log(incomingData);
-	}
 		//submit the textarea
+		function sendData() {
+			var array = $('textarea').val().split(/\n|\r/);
+			//split and saved as string 
+			console.log('array', array);
+			//split each name email pair
+			for(var i = 0; i < array.length; i++) {
+				console.log(array[i]);
+			}
+		}
 
-		//parse the textarea object with .select()
+	//parse the textarea object with .select()
 
-		//return the name string and emails to #emails
+	
+	//return the name string and emails to #emails
+		var outgoingData = document.getElementById('emails');
+		outgoingData.innerHTML = '';//return from parsed data
+
 	</script>
 
 </body>
