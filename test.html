@@ -12,24 +12,25 @@
 	<script>
 		//submit the textarea
 		function sendData() {
-			var array = $('textarea').val().split(/\n|\r/);
+			var outputArray = [];
+			var inputArray = $('textarea').val().split(/\n|\r/);
 			//split and saved as string 
-			console.log('array', array);
+			console.log('inputArray', inputArray);
 			//split name email pairing
-			for(var i = 0; i < array.length; i++) {
-				array[i] = array[i].replace(/"/g, ""); //remove quotes
-				var data =  array[i].split('<');
-				var name = '"' + data[0] + '"';v //has extra space right now
-				var email = "<" + data[1];
+			for(var i = 0; i < inputArray.length; i++) {
+				inputArray[i] = inputArray[i].replace(/"/g, ""); //remove quotes
+				var data =  inputArray[i].split('<');
+				var name = '"' + data[0] + '"'; //has extra space right now
+				var email = ("&lt;" + data[1]).toString();
+				outputArray.push(name, email);
 				console.log('name', name);
 				console.log('email', email);
+				console.log('output array', outputArray);
 			}
-		}
-	
 	//return the name string and emails to #emails
 		var outgoingData = document.getElementById('emails');
-		outgoingData.innerHTML = '';//return from parsed data
-
+		outgoingData.innerHTML = outputArray;//return from parsed data
+	}	
 	</script>
 
 </body>
