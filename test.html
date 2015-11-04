@@ -2,34 +2,43 @@
 <head>
 	<title>Clare's Tech Question Response
 	</title>
+	<style>
+	textarea {
+		border-radius: 1em;
+		margin-left: 2em;
+		margin-right: 2em;
+	}
+	p {
+		margin-left: 2em;	
+		margin-right: 2em;
+	}
+	</style>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
-	<textarea id="myTextarea" rows="10" col="50" placeholder="input emails here"></textarea>
+	<textarea id="myTextarea" rows="10" col="100" placeholder="input emails here"></textarea>
 	<input type="submit" value="submit"onclick="return sendData();" />
 	<p id="emails">This is where the output will be</p>
 
 	<script>
-		//submit the textarea
+
 		function sendData() {
-			var outputArray = [];
 			var inputArray = $('textarea').val().split(/\n|\r/);
-			//split and saved as string 
-			console.log('inputArray', inputArray);
-			//split name email pairing
+			var outgoingData = document.getElementById('emails');
+			var outputArray = [];
+
 			for(var i = 0; i < inputArray.length; i++) {
-				inputArray[i] = inputArray[i].replace(/"/g, ""); //remove quotes
-				var data =  inputArray[i].split('<');
-				var name = '"' + data[0] + '"'; //has extra space right now
-				var email = ("&lt;" + data[1]).toString();
-				outputArray.push(name, email);
-				console.log('name', name);
-				console.log('email', email);
-				console.log('output array', outputArray);
-			}
-	//return the name string and emails to #emails
-		var outgoingData = document.getElementById('emails');
-		outgoingData.innerHTML = outputArray;//return from parsed data
+				inputArray[i] = inputArray[i].replace(/"/g, ""); 
+				var name = '"' + inputArray[i].substr(0, inputArray[i].indexOf('<')-1)+ '"';
+				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>'));
+				
+				//check if email is real
+
+				email = "&lt;" + email;
+
+				outputArray.push(name + ' ' + email + ' ');
+			};
+			outgoingData.innerHTML = outputArray;
 	}	
 	</script>
 
