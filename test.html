@@ -26,13 +26,16 @@
 			var inputArray = $('textarea').val().split(/\n|\r/);
 			var outgoingData = document.getElementById('emails');
 			var outputArray = [];
+			var re = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 
 			for(var i = 0; i < inputArray.length; i++) {
 				inputArray[i] = inputArray[i].replace(/"/g, ""); 
 				var name = '"' + inputArray[i].substr(0, inputArray[i].indexOf('<')-1)+ '"';
 				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>'));
 				
-				//check if email is real
+				if(!re.test(email)){
+					email = 'invalid email address>';
+				}
 
 				email = "&lt;" + email;
 
