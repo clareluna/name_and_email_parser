@@ -30,13 +30,18 @@
 			console.log('input array', inputArray);
 			
 				for(var i = 0; i < inputArray.length; i++) {
-				inputArray[i] = inputArray[i].reTestplace(/"/g, ""); 
+				inputArray[i] = inputArray[i].replace(/"/g, ""); 
 				console.log('input array at position '+ i + ': ', inputArray[i]);
 				var name = inputArray[i].substr(0, inputArray[i].indexOf('<')-1);
-				// if no name specified use email as name 
-
+					if(name.length === 0) {
+						name = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
+					};
+					console.log('name', name);
 				//select email by @ 
 				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
+
+
+				// substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
 				console.log('email', email);
 				if(!reTest.test(email)){
 					email = '<b>invalid email address:</b> ' + email;
@@ -45,6 +50,11 @@
 				outgoingData.innerHTML += (name + ' ' + email + '<br>');
 			};
 	}	
+// 	test names
+// 	"clare" <clare@gmail.com>
+// Tony M <tm@>
+// Dexter "Dog" <dext@gamci.com>
+// <tuc@cat.com>
 	</script>
 
 </body>
