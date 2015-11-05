@@ -26,22 +26,17 @@
 			var inputArray = $('textarea').val().split(/\n|\r/);
 			var outgoingData = document.getElementById('emails');
 			var reTest = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-
-			console.log('input array', inputArray);
 			
-				for(var i = 0; i < inputArray.length; i++) {
+			for(var i = 0; i < inputArray.length; i++) {
 				inputArray[i] = inputArray[i].replace(/"/g, ""); 
-				console.log('input array at position '+ i + ': ', inputArray[i]);
-				var name = inputArray[i].substr(0, inputArray[i].indexOf('<')-1);
-					if(name.length === 0) {
-						name = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
-					};
-					console.log('name', name);
-				//select email by @ 
-				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].length);
-					email = email.substr(0, email.length-1);
 
-				console.log('email', email);
+				var name = inputArray[i].substr(0, inputArray[i].indexOf('<')-1);
+				if(name.length === 0) {
+					name = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
+				};
+
+				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].length);
+				email = email.substr(0, email.length-1);
 				if(!reTest.test(email)){
 					email = '<b>invalid email address:</b> ' + email;
 				};
