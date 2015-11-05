@@ -38,10 +38,9 @@
 					};
 					console.log('name', name);
 				//select email by @ 
-				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
+				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].length);
+					email = email.substr(0, email.length-1);
 
-
-				// substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
 				console.log('email', email);
 				if(!reTest.test(email)){
 					email = '<b>invalid email address:</b> ' + email;
