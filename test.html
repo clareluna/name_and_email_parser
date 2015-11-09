@@ -12,6 +12,12 @@
 		margin-left: 2em;	
 		margin-right: 2em;
 	}
+	table {
+		width: 100%;
+		height: 50%;
+		border: 1px solid black;
+		text-align: center;
+	}
 	</style>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
@@ -74,13 +80,13 @@
 			testsArray[i] = testsArray[i].replace(/>/g, ''); 
 
 			var name = testsArray[i].substr(0, testsArray[i].indexOf('<')-1);
-			if(name.length == 0) {
-				name = testsArray[i].substr(testsArray[i].indexOf('<')+1, testsArray[i].indexOf('>')-1);
+			if(name.length === 0) {
+				name = testsArray[i].substr(testsArray[i].indexOf('<')+1);
 			};
 
 			var email = testsArray[i].substr(testsArray[i].indexOf('<')+1);
 			if(!reTest.test(email)){
-				email = '<b>invalid email address:</b> ' + email;
+				email = 'invalid email address: ' + email;
 			};	
 
 			$("#input" + i).text(testsArray[i]);
@@ -89,36 +95,6 @@
 		}
 	}
 
-	// function runTests() {
-
-	// 	//["clare <clare@dog.com", " <dexter@dog.com>", " Tuckus Z Ruckus <tucker@>", " Clare <@hello.com>"]
-
-	// 	var tr = document.createElement('tr');
-
-
-
-
-
-
-
-	// 		var input = tr.appendChild(document.createTextNode(testsArray[i]));
-	// 		var name = tr.appendChild(document.createTextNode(name));
-	// 		var email = tr.appendChild(document.createTextNode(email));
-
-	// 		console.log('input', input);
-	// 		console.log('name', name);
-	// 		console.log('email', email);
-	// 		document.getElementById("inputData").appendChild(input);
-	// 		document.getElementById("nameData").appendChild(name);
-	// 		document.getElementById("emailData").appendChild(email);
-	// 	}	
-	// }
-
-	//tests
-// 	calre <dog@gmail.com>, <tony@gmaial>,
-// Dexter Dog <dog@gmail.com>,
-// Tuckus <z@ruckus.coM>,
-// <dog@dog.com>
 	</script>
 
 
