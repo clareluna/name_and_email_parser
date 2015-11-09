@@ -12,31 +12,52 @@
 		margin-left: 2em;	
 		margin-right: 2em;
 	}
+	table {
+		width: 100%;
+		height: 50%;
+		border: 1px solid black;
+		text-align: center;
+	}
 	</style>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 	<textarea id="myTextarea" rows="10" col="100" placeholder="input emails here"></textarea>
 	<input type="submit" value="submit"onclick="return sendData();" />
+	<input type="submit" value="Run Tests" onclick="return runTests();"/>
 	<p id="emails"></p>
-
+	<table id="testTable">
+		<thead>
+			<tr>
+				<th id="inputData">Input Data</th>
+				<th id="nameData">Name</th>
+				<th id="emailData">Email Address</th> 
+			</tr>
+		</thead>	
+		<tbody id="tableBody">
+			<tr></tr>
+			<tr></tr>
+			<tr></tr>
+		</tbody>		
+	</table>
 	<script>
 
 		function sendData() {
-			var inputArray = $('textarea').val().split(/\n|\r/);
+			var inputArray = $('textarea').val().split(',');
 			var outgoingData = document.getElementById('emails');
 			var reTest = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-			
+			console.log("array", inputArray);
+
 			for(var i = 0; i < inputArray.length; i++) {
-				inputArray[i] = inputArray[i].replace(/"/g, ""); 
+				inputArray[i] = inputArray[i].replace(/"/g, '');
+				inputArray[i] = inputArray[i].replace(/>/g, ''); 
 
 				var name = inputArray[i].substr(0, inputArray[i].indexOf('<')-1);
 				if(name.length === 0) {
 					name = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].indexOf('>')-1);
 				};
 
-				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1, inputArray[i].length);
-				email = email.substr(0, email.length-1);
+				var email = inputArray[i].substr(inputArray[i].indexOf('<')+1);
 				if(!reTest.test(email)){
 					email = '<b>invalid email address:</b> ' + email;
 				};
@@ -44,6 +65,38 @@
 				outgoingData.innerHTML += (name + ' ' + email + '<br>');
 			};
 	}	
+
+	var runTests = function() {
+		var reTest = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+		var testsString = 'clare <clare@dog.com, <dexter@dog.com>, Tuckus Z Ruckus <tucker@>, Tony <@hello.com>';
+		var testsArray = testsString.split(',');
+
+    for(var i = 0; i < testsArray.length; i++) {
+			$('tbody').append("<tr id='row" + i + "'</tr>");
+			$('#row' + i).append("<td id='input" + i + "'></td>");
+			$('#row' + i).append("<td id='name" + i + "'></td>");
+			$('#row' + i).append("<td id='email" + i + "'></td>");	
+			testsArray[i] = testsArray[i].replace(/"/g, '');
+			testsArray[i] = testsArray[i].replace(/>/g, ''); 
+
+			var name = testsArray[i].substr(0, testsArray[i].indexOf('<')-1);
+			if(name.length === 0) {
+				name = testsArray[i].substr(testsArray[i].indexOf('<')+1);
+			};
+
+			var email = testsArray[i].substr(testsArray[i].indexOf('<')+1);
+			if(!reTest.test(email)){
+				email = 'invalid email address: ' + email;
+			};	
+
+			$("#input" + i).text(testsArray[i]);
+			$("#name" + i).text(name);
+			$("#email" + i).text(email);		
+		}
+	}
+
 	</script>
+
+
 
 </body>
