@@ -68,7 +68,7 @@
 
 	var runTests = function() {
 		var reTest = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-		var testsString = 'clare <clare@dog.com, <dexter@dog.com>, Tuckus Z Ruckus <tucker@>, Tony <@hello.com>';
+		var testsString = 'clare <clare@dog.com>, <dexter@dog.com>, Tuckus Z Ruckus <tucker@>, Tony <@hello.com>';
 		var testsArray = testsString.split(',');
 
     for(var i = 0; i < testsArray.length; i++) {
@@ -76,6 +76,7 @@
 			$('#row' + i).append("<td id='input" + i + "'></td>");
 			$('#row' + i).append("<td id='name" + i + "'></td>");
 			$('#row' + i).append("<td id='email" + i + "'></td>");	
+			$("#input" + i).text(testsArray[i]);
 			testsArray[i] = testsArray[i].replace(/"/g, '');
 			testsArray[i] = testsArray[i].replace(/>/g, ''); 
 
@@ -89,7 +90,6 @@
 				email = 'invalid email address: ' + email;
 			};	
 
-			$("#input" + i).text(testsArray[i]);
 			$("#name" + i).text(name);
 			$("#email" + i).text(email);		
 		}
